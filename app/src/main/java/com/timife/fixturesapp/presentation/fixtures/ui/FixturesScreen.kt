@@ -25,6 +25,7 @@ import com.timife.fixturesapp.presentation.fixtures.FixturesViewModel
 fun FixturesScreen(
     modifier: Modifier = Modifier,
     viewModel: FixturesViewModel = hiltViewModel(),
+    header:String
 ) {
 
     val state = viewModel.state
@@ -43,7 +44,7 @@ fun FixturesScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = state.value.header,
+                    text = header,
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp
                 )

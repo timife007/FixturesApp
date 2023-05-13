@@ -38,12 +38,16 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.CompetitionsScreen.route) {
                         CompetitionScreen(navController = navController)
                     }
-                    composable(Screen.FixturesScreen.route + "/{competition}", arguments = listOf(
+                    composable(Screen.FixturesScreen.route + "/{competition}/{competitionName}", arguments = listOf(
                         navArgument(name = "competition") {
                             type = NavType.IntType
+                        },
+                        navArgument("competitionName"){
+                            type = NavType.StringType
                         }
-                    )) {
-                        FixturesScreen()
+                    )) {backStackEntry ->
+                        val competitionArgs = backStackEntry.arguments?.getString("competitionName")
+                        FixturesScreen(header = competitionArgs ?: "")
                     }
                 }
             }

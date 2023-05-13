@@ -32,8 +32,7 @@ class FixturesViewModel @Inject constructor(
                 when (resource) {
                     is Resource.Success -> {
                         resource.data?.let {
-                            val header = "Testing"
-                            _state.value = state.value.copy(fixtures = it, header = header)
+                            _state.value = state.value.copy(fixtures = it)
                         }
                     }
                     is Resource.Loading -> {

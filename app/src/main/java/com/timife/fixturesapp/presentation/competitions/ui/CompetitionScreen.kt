@@ -84,7 +84,7 @@ fun CompetitionScreen(
                         CompetitionItem(
                             competition = competition,
                             modifier = modifier.padding(5.dp).clickable {
-                                navController.navigate(Screen.FixturesScreen.route + "/${competition.id}")
+                                navController.navigate(Screen.FixturesScreen.route + "/${competition.id}/${competition.name}")
                             }
                         )
                     }
