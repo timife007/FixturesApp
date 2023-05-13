@@ -10,5 +10,8 @@ data class Fixture(
     val competitionName: String,
     val homeTeam: HomeTeam,
     val awayTeam: AwayTeam,
-    val score: Scores
+    val score: Scores,
+    val matchDate:String,
+    val matchTime:String,
+    val status:String
 )

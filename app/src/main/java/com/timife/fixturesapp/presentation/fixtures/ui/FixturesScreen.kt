@@ -38,25 +38,26 @@ fun FixturesScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(padding),
+                    .padding(padding)
+                    .height(60.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = state.value.header,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp
+                    fontSize = 25.sp
                 )
-
             }
             Box(modifier = modifier.fillMaxSize()) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(5.dp),
                 ) {
                     items(state.value.fixtures) { fixture ->
                             FixtureItem(
+                                modifier = modifier.padding(5.dp),
                                 fixture = fixture
                             )
                     }

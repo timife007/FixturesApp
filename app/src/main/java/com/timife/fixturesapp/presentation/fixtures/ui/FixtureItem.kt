@@ -15,11 +15,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.timife.fixturesapp.domain.model.Fixture
+import com.timife.fixturesapp.presentation.fixtures.FixtureStatus
 
 @Composable
 fun FixtureItem(
@@ -41,7 +41,9 @@ fun FixtureItem(
             Text(
                 text = fixture.homeTeam.shortName ?: "Home Team",
                 style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.SemiBold),
-                modifier = Modifier.padding(5.dp)
+                modifier = Modifier
+                    .padding(5.dp)
+                    .width(70.dp)
             )
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -60,7 +62,7 @@ fun FixtureItem(
                         )
                         .size(50.dp)
                         .padding(5.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Inside
                 )
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -68,20 +70,23 @@ fun FixtureItem(
                     modifier = Modifier.padding(10.dp)
                 ) {
                     Text(
-                        text = "19:00",
+                        text = if (fixture.status == FixtureStatus.FINISHED.status) {
+                            "${fixture.score.fullTime.home} : ${fixture.score.fullTime.away}"
+                        } else {
+                            fixture.matchTime
+                        },
                         style = MaterialTheme.typography.body1.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = Color.Red
                         ),
-                        modifier = Modifier.padding(5.dp)
+                        modifier = Modifier.padding(3.dp)
                     )
                     Text(
-                        text = "15 OCT.",
+                        text = fixture.matchDate,
                         style = MaterialTheme.typography.body1.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = Color.LightGray
-                        ),
-                        modifier = Modifier.padding(5.dp)
+                        )
                     )
                 }
                 AsyncImage(
@@ -95,14 +100,17 @@ fun FixtureItem(
                             RoundedCornerShape(10.dp)
                         )
                         .size(50.dp)
-                        .padding(5.dp)
+                        .padding(5.dp),
+                    contentScale = ContentScale.Inside
                 )
             }
 
             Text(
                 text = fixture.awayTeam.shortName ?: "Away Team",
                 style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.SemiBold),
-                modifier = Modifier.padding(5.dp)
+                modifier = Modifier
+                    .padding(5.dp)
+                    .width(70.dp)
             )
         }
 

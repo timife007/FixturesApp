@@ -13,5 +13,8 @@ data class FixtureEntity(
     val competitionName: String,
     @Embedded val homeTeam: HomeTeamEntity,
     @Embedded val awayTeam: AwayTeamEntity,
-    @Embedded val score: ScoreEntity
+    @Embedded val score: ScoreEntity,
+    val matchDate : String,
+    val matchTime: String,
+    val status:String
 )

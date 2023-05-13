@@ -126,7 +126,10 @@ fun Match.toFixtureEntity(): FixtureEntity {
         competitionName = competition.name,
         homeTeam = homeTeam.toHomeTeamEntity(),
         awayTeam = awayTeam.toAwayTeamEntity(),
-        score = score.toScoreEntity()
+        score = score.toScoreEntity(),
+        matchDate = convertUtcToLocalDate(utcDate),
+        matchTime = convertUtcToLocalTime(utcDate),
+        status = status
     )
 }
 
@@ -137,6 +140,9 @@ fun FixtureEntity.toFixture(): Fixture {
         competitionName = competitionName,
         homeTeam = homeTeam.toHomeTeam(),
         awayTeam = awayTeam.toAwayTeam(),
-        score = score.toScores()
+        score = score.toScores(),
+        matchDate = matchDate,
+        matchTime = matchTime,
+        status = status
     )
 }
