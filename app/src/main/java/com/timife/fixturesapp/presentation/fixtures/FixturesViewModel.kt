@@ -22,17 +22,40 @@ class FixturesViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<Int>("competition")?.let { competition ->
-            getFixtures(competition)
+            getFixtures(competition, 0)
         }
     }
 
-    private fun getFixtures(competitionId: Int) {
+    fun getFixtures(competitionId: Int, matchDay: Int) {
         viewModelScope.launch {
             getFixturesUseCase.invoke(competitionId).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        resource.data?.let {
-                            _state.value = state.value.copy(fixtures = it)
+                        resource.data?.let { fixtures ->
+                            val matchDays = fixtures.distinctBy { fixture ->
+                                fixture.matchday
+                            }.map { distinctFix ->
+                                distinctFix.matchday
+                            }
+                            if (matchDay == 0) {
+                                _state.value =
+                                    state.value.copy(
+                                        fixtures = fixtures,
+                                        matchDays = matchDays,
+                                        competitionId = competitionId,
+                                        selectedFilter = matchDay
+                                    )
+                            } else {
+                                val matchDayFixtures = fixtures.filter {
+                                    it.matchday == matchDay
+                                }
+                                _state.value = state.value.copy(
+                                    fixtures = matchDayFixtures,
+                                    matchDay = matchDay,
+                                    competitionId = competitionId,
+                                    selectedFilter = matchDay
+                                )
+                            }
                         }
                     }
                     is Resource.Loading -> {

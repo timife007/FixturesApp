@@ -13,5 +13,6 @@ data class Fixture(
     val score: Scores,
     val matchDate:String,
     val matchTime:String,
-    val status:String
+    val status:String,
+    val matchday:Int
 )

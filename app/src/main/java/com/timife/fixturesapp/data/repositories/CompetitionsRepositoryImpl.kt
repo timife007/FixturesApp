@@ -14,6 +14,7 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Singleton
 class CompetitionsRepositoryImpl @Inject constructor(
     private val dao: CompetitionsDao,
     private val api: FixturesApi,
@@ -22,7 +23,7 @@ class CompetitionsRepositoryImpl @Inject constructor(
         return flow {
             emit(Resource.Loading(true))
             val localCompetition = dao.getAllCompetitions()
-                emit(Resource.Success(localCompetition.map {
+            emit(Resource.Success(localCompetition.map {
                     it.toCompetition()
                 }))
 

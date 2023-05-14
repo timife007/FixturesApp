@@ -26,7 +26,6 @@ fun FixtureItem(
     modifier: Modifier = Modifier,
     fixture: Fixture,
 ) {
-
     Card(
         modifier = Modifier
             .shadow(10.dp)

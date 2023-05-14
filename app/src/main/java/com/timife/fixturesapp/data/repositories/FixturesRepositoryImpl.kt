@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class FixturesRepositoryImpl @Inject constructor(
     private val dao: FixturesDao,
     private val api: FixturesApi,

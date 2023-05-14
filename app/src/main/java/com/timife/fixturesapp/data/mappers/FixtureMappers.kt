@@ -129,7 +129,8 @@ fun Match.toFixtureEntity(): FixtureEntity {
         score = score.toScoreEntity(),
         matchDate = convertUtcToLocalDate(utcDate),
         matchTime = convertUtcToLocalTime(utcDate),
-        status = status
+        status = status,
+        matchday = matchday ?: 1
     )
 }
 
@@ -143,6 +144,7 @@ fun FixtureEntity.toFixture(): Fixture {
         score = score.toScores(),
         matchDate = matchDate,
         matchTime = matchTime,
-        status = status
+        status = status,
+        matchday = matchday
     )
 }

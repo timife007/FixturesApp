@@ -3,6 +3,7 @@ package com.timife.fixturesapp.presentation.fixtures.ui
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -16,8 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.timife.fixturesapp.presentation.fixtures.FixturesViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -25,7 +24,7 @@ import com.timife.fixturesapp.presentation.fixtures.FixturesViewModel
 fun FixturesScreen(
     modifier: Modifier = Modifier,
     viewModel: FixturesViewModel = hiltViewModel(),
-    header:String
+    header: String,
 ) {
 
     val state = viewModel.state
@@ -40,27 +39,41 @@ fun FixturesScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(padding)
-                    .height(60.dp),
+                    .height(50.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = header,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp
+                    fontSize = 20.sp
                 )
             }
+            LazyRow(
+                modifier = Modifier.padding(5.dp),
+                horizontalArrangement = Arrangement.spacedBy(3.dp)
+            ) {
+                items(state.value.matchDays) { matchday ->
+                    FilterChip(
+                        filterOption = matchday,
+                        selectedFilter = state.value.selectedFilter,
+                        onFilterSelected = {
+                            viewModel.getFixtures(state.value.competitionId, it)
+                        })
+                }
+            }
+
             Box(modifier = modifier.fillMaxSize()) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(5.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     items(state.value.fixtures) { fixture ->
-                            FixtureItem(
-                                modifier = modifier.padding(5.dp),
-                                fixture = fixture
-                            )
+                        FixtureItem(
+                            modifier = modifier.padding(5.dp),
+                            fixture = fixture
+                        )
                     }
                 }
 

@@ -16,5 +16,6 @@ data class FixtureEntity(
     @Embedded val score: ScoreEntity,
     val matchDate : String,
     val matchTime: String,
-    val status:String
+    val status:String,
+    val matchday:Int
 )
