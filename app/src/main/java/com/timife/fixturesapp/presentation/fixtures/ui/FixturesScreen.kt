@@ -1,22 +1,26 @@
 package com.timife.fixturesapp.presentation.fixtures.ui
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.timife.fixturesapp.presentation.fixtures.FixturesViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -25,6 +29,7 @@ fun FixturesScreen(
     modifier: Modifier = Modifier,
     viewModel: FixturesViewModel = hiltViewModel(),
     header: String,
+    navController: NavController,
 ) {
 
     val state = viewModel.state
@@ -39,18 +44,47 @@ fun FixturesScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(padding)
-                    .height(50.dp),
+                    .height(60.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = header,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                ) {
+                    IconButton(modifier = Modifier, onClick = {
+                        navController.navigateUp()
+                    }) {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(20.dp))
+                                .size(40.dp)
+                                .background(Color.LightGray),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Navigate Back",
+                                modifier = Modifier.size(20.dp),
+                                tint = Color.White
+                            )
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = header,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 25.sp,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                    )
+                }
+
             }
             LazyRow(
                 modifier = Modifier.padding(5.dp),
-                horizontalArrangement = Arrangement.spacedBy(3.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 items(state.value.matchDays) { matchday ->
                     FilterChip(

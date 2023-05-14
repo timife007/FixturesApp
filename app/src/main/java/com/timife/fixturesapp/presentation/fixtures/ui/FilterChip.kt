@@ -24,8 +24,8 @@ fun FilterChip(filterOption: Int, selectedFilter: Int, onFilterSelected: (Int) -
             backgroundColor = Color.Red,
             contentColor = Color.White
         ) else ChipDefaults.chipColors(
-            backgroundColor = Color.White,
-            contentColor = Color.LightGray
+            backgroundColor = Color.LightGray,
+            contentColor = Color.DarkGray
         )
     ) {
         Text(text = "Matchday $filterOption")

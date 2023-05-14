@@ -36,7 +36,7 @@ class FixturesViewModel @Inject constructor(
                                 fixture.matchday
                             }.map { distinctFix ->
                                 distinctFix.matchday
-                            }
+                            }.sortedDescending()
                             if (matchDay == 0) {
                                 _state.value =
                                     state.value.copy(

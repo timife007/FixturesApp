@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )) { backStackEntry ->
                         val competitionArgs = backStackEntry.arguments?.getString("competitionName")
-                        FixturesScreen(header = competitionArgs ?: "")
+                        FixturesScreen(header = competitionArgs ?: "", navController = navController)
                     }
                 }
             }

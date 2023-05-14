@@ -56,7 +56,7 @@ fun CompetitionScreen(
                     onCloseClick = {},
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(70.dp)
+                        .height(60.dp)
                 )
                 this@Column.AnimatedVisibility(
                     visible = !state.value.isSearchActive,
@@ -65,7 +65,7 @@ fun CompetitionScreen(
                 ) {
                     Text(
                         text = "Competitions",
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.SemiBold,
                         fontSize = 25.sp
                     )
                 }
