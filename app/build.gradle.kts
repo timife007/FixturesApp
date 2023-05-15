@@ -130,7 +130,6 @@ dependencies {
 //    testImplementation (Deps.runner)
 
     //Instrumentation Tests
-//    androidTestImplementation(Deps.runner)
 //    androidTestImplementation (Deps.espresso)
     androidTestImplementation (Deps.junitExt)
     androidTestImplementation (Deps.truth)

@@ -49,6 +49,5 @@ object Deps {
     val mockk by lazy { "io.mockk:mockk:${Versions.mockk}" }
     val truth by lazy { "com.google.truth:truth:${Versions.truth}" }
     val espresso by lazy { "androidx.test.espresso:espresso-core:${Versions.espresso}" }
-//    val runner by lazy { "androidx.test:runner:${Versions.testRunner}" }
 
 }
