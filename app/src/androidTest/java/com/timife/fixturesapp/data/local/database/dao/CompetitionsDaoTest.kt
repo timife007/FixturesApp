@@ -52,7 +52,7 @@ class CompetitionsDaoTest {
         val storedData = dao.getAllCompetitions()
         assertThat(storedData).isNotEmpty()
         dao.clearAllCompetition()
-        assertThat(storedData).isEmpty()
+        assertThat(dao.getAllCompetitions()).isEmpty()
     }
 
     @Test

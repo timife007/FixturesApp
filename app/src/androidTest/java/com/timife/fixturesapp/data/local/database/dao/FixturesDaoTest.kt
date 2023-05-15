@@ -4,10 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.common.truth.Truth.assertThat
 import com.timife.fixturesapp.data.local.database.FixturesDatabase
 import com.timife.fixturesapp.data.local.model.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Assert.*
+import kotlinx.coroutines.test.runTest
 
 import org.junit.After
 import org.junit.Before
@@ -40,21 +41,32 @@ class FixturesDaoTest {
     }
 
     @Test
-    fun insertFixtures() {
+    fun insertFixtures() = runTest {
+        dao.insertFixtures(fixtures[0])
+        val getFixtures = dao.getFixtures(competitionId)
+        assertThat(getFixtures).isEqualTo(fixtures)
     }
 
     @Test
-    fun clearAllFixtures() {
+    fun clearAllFixtures() = runTest {
+        dao.insertFixtures(fixtures[0])
+        val getFixtures = dao.getFixtures(competitionId)
+        assertThat(getFixtures).isEqualTo(fixtures)
+        dao.clearAllFixtures()
+        assertThat(dao.getFixtures(competitionId)).isEmpty()
     }
 
     @Test
-    fun getFixtures() {
+    fun getFixtures() = runTest {
+        dao.insertFixtures(fixtures[0])
+        val getFixtures = dao.getFixtures(competitionId)
+        assertThat(getFixtures).isEqualTo(fixtures)
     }
 
-    companion object{
+    companion object {
         const val competitionId = 2001
 
-        val localItems = listOf(
+        val fixtures = listOf(
             FixtureEntity(
                 1,
                 2001,
