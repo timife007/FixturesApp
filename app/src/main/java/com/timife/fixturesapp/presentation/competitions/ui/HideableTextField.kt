@@ -57,9 +57,7 @@ fun HideableTextField(
                 Alignment.CenterEnd
             )
         ) {
-            IconButton(onClick = onSearchClick) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = "Open search ")
-            }
+            //TODO: Implement search
         }
     }
 }
