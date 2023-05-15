@@ -49,13 +49,6 @@ class CompetitionsRepositoryTest {
             assertThat(newItems.data).isEqualTo(localItems.map {
                 it.toCompetition()
             })
-//            assertThat((awaitItem() as Resource.Loading).isLoading).isFalse()
-//
-//            val item = awaitItem()
-//            assertThat(item is Resource.Success).isTrue()
-//            assertThat(item.data).isEqualTo(dao.getAllCompetitions().map {
-//                it.toCompetition()
-//            })
             val stopLoading = awaitItem()
             assertThat((stopLoading as Resource.Loading).isLoading).isFalse()
             awaitComplete()
