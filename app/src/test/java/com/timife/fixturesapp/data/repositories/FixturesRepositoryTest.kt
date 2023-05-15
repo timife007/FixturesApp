@@ -1,16 +1,13 @@
 package com.timife.fixturesapp.data.repositories
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import com.timife.fixturesapp.data.local.FakeFixturesDao
 import com.timife.fixturesapp.data.local.database.dao.FixturesDao
 import com.timife.fixturesapp.data.local.model.*
-import com.timife.fixturesapp.data.mappers.toCompetition
 import com.timife.fixturesapp.data.mappers.toFixture
 import com.timife.fixturesapp.data.remote.FixturesApi
 import com.timife.fixturesapp.domain.Resource
-import com.timife.fixturesapp.domain.repositories.FixturesRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,13 +37,12 @@ class FixturesRepositoryTest {
     }
 
     @Test
-    fun getFixtures() = runTest {
-        val competitionId = 2001
+    fun `fetch fixtures when database is not empty`() = runTest {
         /**
          * using turbine to test unit if subject under test is exposing a flow
          */
         dao.insertFixtures(localItems[0])
-        repository.getFixtures(false,competitionId).test {
+        repository.getFixtures(false, competitionId).test {
             val initialLoading = awaitItem()
             assertThat((initialLoading as Resource.Loading).isLoading).isTrue()
             val newItems = awaitItem()
@@ -54,14 +50,6 @@ class FixturesRepositoryTest {
             assertThat(newItems.data).isEqualTo(localItems.map {
                 it.toFixture()
             })
-//            val loading = awaitItem()
-//            assertThat((loading as Resource.Loading).isLoading).isFalse()
-
-//            val item = awaitItem()
-//            assertThat(item is Resource.Success).isTrue()
-//            assertThat(newItems.data).isEqualTo(dao.getFixtures(competitionId).map {
-//                it.toFixture()
-//            })
             val stopLoading = awaitItem()
             assertThat((stopLoading as Resource.Loading).isLoading).isFalse()
             awaitComplete()
@@ -69,9 +57,34 @@ class FixturesRepositoryTest {
 
     }
 
+    @Test
+    fun `fetch fixtures on swipe to refresh or first entry`() = runTest {
+        dao.insertFixtures(localItems[0])
+        repository.getFixtures(true, competitionId).test {
+            val initialLoading = awaitItem()
+            assertThat((initialLoading as Resource.Loading).isLoading).isTrue()
+            val newItems = awaitItem()
+            assertThat(newItems is Resource.Success).isTrue()
+            assertThat(newItems.data).isEqualTo(localItems.map {
+                it.toFixture()
+            })
+
+            val item = awaitItem()
+            assertThat(item is Resource.Success).isTrue()
+            assertThat(newItems.data).isEqualTo(dao.getFixtures(competitionId).map {
+                it.toFixture()
+            })
+            val stopLoading = awaitItem()
+            assertThat((stopLoading as Resource.Loading).isLoading).isFalse()
+            awaitComplete()
+        }
+    }
+
     companion object {
+        const val competitionId = 2001
+
         val localItems = listOf(
-             FixtureEntity(
+            FixtureEntity(
                 1,
                 2001,
                 "Premier League",
