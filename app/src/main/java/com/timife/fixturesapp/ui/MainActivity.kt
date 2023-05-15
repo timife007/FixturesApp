@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.timife.fixturesapp.domain.model.Fixture
 import com.timife.fixturesapp.presentation.competitions.ui.CompetitionScreen
 import com.timife.fixturesapp.presentation.fixtures.ui.FixturesScreen
 import com.timife.fixturesapp.ui.theme.FixturesAppTheme
@@ -40,7 +41,10 @@ class MainActivity : ComponentActivity() {
                             }
                         )) { backStackEntry ->
                         val competitionArgs = backStackEntry.arguments?.getString("competitionName")
-                        FixturesScreen(header = competitionArgs ?: "", navController = navController)
+                        FixturesScreen(
+                            header = competitionArgs ?: "",
+                            navController = navController
+                        )
                     }
                 }
             }

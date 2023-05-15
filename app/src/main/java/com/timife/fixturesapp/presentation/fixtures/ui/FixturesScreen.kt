@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.timife.fixturesapp.presentation.fixtures.FixturesViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -31,6 +33,10 @@ fun FixturesScreen(
     header: String,
     navController: NavController,
 ) {
+
+    val swipeRefreshState = rememberSwipeRefreshState(
+        isRefreshing = viewModel.state.value.isRefreshing
+    )
 
     val state = viewModel.state
 
@@ -91,23 +97,36 @@ fun FixturesScreen(
                         filterOption = matchday,
                         selectedFilter = state.value.selectedFilter,
                         onFilterSelected = {
-                            viewModel.getFixtures(state.value.competitionId, it)
+                            viewModel.getFixtures(
+                                competitionId = state.value.competitionId,
+                                matchDay = it
+                            )
                         })
                 }
             }
 
-            Box(modifier = modifier.fillMaxSize()) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(5.dp)
+            ) {
+                SwipeRefresh(
+                    state = swipeRefreshState,
+                    onRefresh = viewModel::swipeRefresh
                 ) {
-                    items(state.value.fixtures) { fixture ->
-                        FixtureItem(
-                            modifier = modifier.padding(5.dp),
-                            fixture = fixture
-                        )
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        items(state.value.fixtures) { fixture ->
+                            FixtureItem(
+                                modifier = modifier
+                                    .padding(5.dp),
+                                fixture = fixture
+                            )
+                        }
                     }
                 }
 

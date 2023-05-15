@@ -1,9 +1,11 @@
 package com.timife.fixturesapp.domain.model
 
+import android.os.Parcelable
 import com.timife.fixturesapp.data.remote.dtos.fixturesdto.AwayTeam
 import com.timife.fixturesapp.data.remote.dtos.fixturesdto.HomeTeam
-import com.timife.fixturesapp.data.remote.dtos.fixturesdto.Score
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Fixture(
     val id: Int,
     val competitionId: Int,
@@ -11,8 +13,8 @@ data class Fixture(
     val homeTeam: HomeTeam,
     val awayTeam: AwayTeam,
     val score: Scores,
-    val matchDate:String,
-    val matchTime:String,
-    val status:String,
-    val matchday:Int
-)
+    val matchDate: String,
+    val matchTime: String,
+    val status: String,
+    val matchday: Int
+):Parcelable

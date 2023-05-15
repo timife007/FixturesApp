@@ -8,5 +8,5 @@ data class Competition(
     val id: Int,
     val name: String,
     val emblem: String,
-    val code: String
-):Parcelable
+    val code: String,
+) : Parcelable

@@ -7,7 +7,7 @@ import coil.decode.SvgDecoder
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FixturesApplication : Application(){
+class FixturesApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         val imageLoader = ImageLoader.Builder(applicationContext)

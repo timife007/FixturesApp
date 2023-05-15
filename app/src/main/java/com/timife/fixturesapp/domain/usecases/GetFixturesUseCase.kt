@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetFixturesUseCase @Inject constructor(
     private val fixturesRepository: FixturesRepository,
 ) {
-    operator fun invoke(competitionId: Int): Flow<Resource<List<Fixture>>> {
-        return fixturesRepository.getFixtures(competitionId)
+    operator fun invoke(fetchFromRemote:Boolean,competitionId: Int): Flow<Resource<List<Fixture>>> {
+        return fixturesRepository.getFixtures(fetchFromRemote,competitionId)
     }
 }

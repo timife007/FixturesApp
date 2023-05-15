@@ -5,5 +5,5 @@ import com.timife.fixturesapp.domain.model.Fixture
 import kotlinx.coroutines.flow.Flow
 
 interface FixturesRepository {
-    fun getFixtures(competitionId: Int): Flow<Resource<List<Fixture>>>
+    fun getFixtures(fetchFromRemote: Boolean, competitionId: Int): Flow<Resource<List<Fixture>>>
 }

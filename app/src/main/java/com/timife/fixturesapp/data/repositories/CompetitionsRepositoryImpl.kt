@@ -24,8 +24,8 @@ class CompetitionsRepositoryImpl @Inject constructor(
             emit(Resource.Loading(true))
             val localCompetition = dao.getAllCompetitions()
             emit(Resource.Success(localCompetition.map {
-                    it.toCompetition()
-                }))
+                it.toCompetition()
+            }))
 
             //Should only load data from db if Db is not empty and remote fetch is false.
             val isDbEmpty = localCompetition.isEmpty()

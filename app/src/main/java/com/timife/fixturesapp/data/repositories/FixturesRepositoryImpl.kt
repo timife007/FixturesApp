@@ -19,7 +19,7 @@ class FixturesRepositoryImpl @Inject constructor(
     private val dao: FixturesDao,
     private val api: FixturesApi,
 ) : FixturesRepository {
-    override fun getFixtures(competitionId: Int): Flow<Resource<List<Fixture>>> {
+    override fun getFixtures(fetchFromRemote:Boolean,competitionId: Int): Flow<Resource<List<Fixture>>> {
 
         return flow {
             emit(Resource.Loading(true))
@@ -30,7 +30,7 @@ class FixturesRepositoryImpl @Inject constructor(
 
             //Should only load data from db if Db is not empty and remote fetch is false.
             val isDbEmpty = localFixtures.isEmpty()
-            val shouldLoadFromDb = !isDbEmpty
+            val shouldLoadFromDb = !isDbEmpty && !fetchFromRemote
             if (shouldLoadFromDb) {
                 emit(Resource.Loading(false))
                 return@flow
@@ -61,18 +61,18 @@ class FixturesRepositoryImpl @Inject constructor(
 //                        it.toFixtureEntity()
 //                    }
 //                )
-                    emit(
-                        Resource.Success(
-                            data = dao.getFixtures(competitionId).map { fixtureEntity ->
-                                fixtureEntity.toFixture()
-                            }
-                        ))
-                    emit(
-                        Resource.Loading(
-                            false
-                        )
+                emit(
+                    Resource.Success(
+                        data = dao.getFixtures(competitionId).map { fixtureEntity ->
+                            fixtureEntity.toFixture()
+                        }
+                    ))
+                emit(
+                    Resource.Loading(
+                        false
                     )
-                }
+                )
             }
         }
     }
+}

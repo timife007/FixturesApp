@@ -6,6 +6,6 @@ data class CompetitionUiState(
     val competitions: List<Competition> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = "",
-    val searchText:String = "",
-    val isSearchActive:Boolean = false
+    val searchText: String = "",
+    val isSearchActive: Boolean = false,
 )

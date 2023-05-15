@@ -1,8 +1,11 @@
 package com.timife.fixturesapp.data.remote.dtos.fixturesdto
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class AwayTeam(
     @field:Json(name = "crest")
     val crest: String?,
@@ -14,4 +17,4 @@ data class AwayTeam(
     val shortName: String?,
     @field:Json(name = "tla")
     val tla: String?
-)
+):Parcelable

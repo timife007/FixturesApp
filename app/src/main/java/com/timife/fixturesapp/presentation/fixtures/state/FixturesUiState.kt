@@ -9,5 +9,6 @@ data class FixturesUiState(
     val matchDays: List<Int> = emptyList(),
     val matchDay: Int = 0,
     val competitionId: Int = 0,
-    val selectedFilter : Int = 0
+    val selectedFilter: Int = 0,
+    val isRefreshing: Boolean = false
 )

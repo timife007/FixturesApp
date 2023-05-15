@@ -22,13 +22,13 @@ class FixturesViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<Int>("competition")?.let { competition ->
-            getFixtures(competition, 0)
+            getFixtures(competitionId = competition, matchDay = 0)
         }
     }
 
-    fun getFixtures(competitionId: Int, matchDay: Int) {
+    fun getFixtures(fetchFromRemote: Boolean = false, competitionId: Int, matchDay: Int) {
         viewModelScope.launch {
-            getFixturesUseCase.invoke(competitionId).collect { resource ->
+            getFixturesUseCase.invoke(fetchFromRemote, competitionId).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         resource.data?.let { fixtures ->
@@ -68,5 +68,9 @@ class FixturesViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun swipeRefresh() {
+        getFixtures(fetchFromRemote = true, _state.value.competitionId, _state.value.matchDay)
     }
 }
