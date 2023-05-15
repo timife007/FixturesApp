@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,11 +25,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        val apiKey = project.properties["api_key"]
         val baseUrl = project.properties["base_url"]
-        buildConfigField("String","API_KEY","\"$apiKey\"")
         buildConfigField("String", "BASE_URL","\"$baseUrl\"")
-
+        val properties = Properties().apply{
+            load(project.rootProject.file("local.properties").inputStream())
+        }
+        buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {

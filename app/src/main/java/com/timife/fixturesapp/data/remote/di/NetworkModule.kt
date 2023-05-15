@@ -24,7 +24,7 @@ object NetworkModule {
     fun provideApiService(app: Application): FixturesApi {
         val interceptor = Interceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("X-Auth-Token", "bf20931a8f104b7d8270800d54ea870b")
+                .addHeader("X-Auth-Token", BuildConfig.API_KEY)
                 .build()
             chain.proceed(request)
         }
