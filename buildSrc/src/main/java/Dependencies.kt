@@ -6,7 +6,6 @@ object Deps {
     val composeUi by lazy { "androidx.compose.ui:ui:${Versions.compose_ui_version}" }
     val activityCompose by lazy { "androidx.activity:activity-compose:${Versions.compose_activity}" }
     val composeUiTest by lazy { "androidx.compose.ui:ui-test-junit4:${Versions.compose_ui_version}" }
-    val composeUiToolingTest by lazy { "androidx.compose.ui:ui-test-junit4:${Versions.compose_ui_version}" }
     val uiManifest by lazy { "androidx.compose.ui:ui-test-manifest:${Versions.compose_ui_version}" }
     val legacy by lazy { "androidx.legacy:legacy-support-v4:${Versions.legacy}" }
     val hilt by lazy { "com.google.dagger:hilt-android:${Versions.daggerHilt}" }

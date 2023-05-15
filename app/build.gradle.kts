@@ -65,7 +65,7 @@ dependencies {
     androidTestImplementation (Deps.junitExt)
 //    androidTestImplementation (Deps.espresso)
     androidTestImplementation (Deps.composeUiTest)
-    debugImplementation (Deps.composeUiToolingTest)
+    debugImplementation (Deps.composeUiTest)
     debugImplementation (Deps.uiManifest)
 
     //di
